@@ -35,41 +35,6 @@ class KochLine
   {
     return start.get();
   }
-  
-  /*
-  PVector pctA()
-  {
-    PVector a = pctStart();
-
-    PVector length = PVector.div(PVector(start, end), 3);
-
-    a.add(length);
-
-    return a;
-  }
-
-  PVector pctB()
-  {
-    PVector b = pctStart();
-
-    PVector length = PVector.div(PVector(start, end), 1/3);
-
-    a.add(length);
-
-    return a;
-  }
-
-  PVector pctC()
-  {
-    PVector c = pctStart;
-
-    PVector length = PVector.mult(PVector(start, end), 2/3.0);
-
-    a.add(length);
-
-    return a;
-  }
-  */
   public PVector pctA() 
   {
     // .sub() scade dintr-un vector alt vector (defapt ii aduna, daca amandoi vectorii au baza in colt,
@@ -96,7 +61,6 @@ class KochLine
     length.rotate(-radians(60));
     // ne miscam cu pct pe vectorul length pana la pctA
     pct.add(length);
-
     return pct;
   }
 
@@ -115,9 +79,13 @@ class KochLine
   }
   
   //Functie de creeare a unei liniei propriu zise
-  public void display(float zoom) {
+  public void display() {
     stroke(0);
-    line(start.x, start.y, end.x, end.y);
+    if(start.x > -50 && start.y < 650 && end.x < 650 && end.y < 650)
+    {
+      line(start.x, start.y, end.x, end.y);
+    }
+    
   }
 }
 
@@ -129,9 +97,9 @@ float nrIteratii=1.0f;
 //Cu cat se da zoom
 //Datorita faptului ca zoomul se face in cel mai tampit mod posbil, are nevoie de o acceleratie
 float acc = millis()/1000;
-float zoom = 0.0f*acc;
+float zoom = 300.0f;
 
-//Input de la tase
+//Input de la taste
 public void keyPressed() 
 {
 
@@ -154,7 +122,7 @@ public void keyPressed()
 }
 
 
-//UPDATED: am mutat tot in draw pt a putea updata in fucnite de Input
+//UPDATED: am mutat tot in draw pt a putea updata in funnctie de Input
 //(setup() ruleaza o singura data)
 public void setup() {
 
@@ -178,8 +146,7 @@ public void draw() {
   lineArray.add(new KochLine(end, start));
   lineArray.add(new KochLine(start, top));
   lineArray.add(new KochLine(top, end));
-
-  //Se schimba nr. de recursivitati in functie de locatia mouseului
+  //Se schimba nr. de recursivitati in functie de Input-ul de la tastatura
   //float nrIteratii = map(mouseX,1,width-1,1,5);
   for (int i = 0; i < nrIteratii; i++) 
   {
@@ -187,11 +154,16 @@ public void draw() {
   }
 
   for (KochLine i : lineArray) {
-    i.display(zoom);
+    i.display();
   }
+
+  int size = lineArray.size();
+  println(size);
 }
 
-public void generate() {
+//TODO: Sterge ce nu se vede in ecran
+public void generate() 
+{
   // Creaza urmatoare generatie din lista de Arrayuri
   ArrayList newLineArray = new ArrayList<KochLine>();
 
@@ -208,6 +180,25 @@ public void generate() {
     newLineArray.add(new KochLine(a,b));
     newLineArray.add(new KochLine(b,c));
     newLineArray.add(new KochLine(c,end));
+
+    /*
+    if(start.x > 0 && start.y < 600 && b.x < 600 && b.y < 600)
+    {
+      newLineArray.add(new KochLine(start,b)); 
+    }
+    if(a.x > 0 && a.y < 600 && b.x < 600 && b.y < 600)
+    {
+      newLineArray.add(new KochLine(a,b)); 
+    }
+    if(b.x > 0 && b.y < 600 && c.x < 600 && c.y < 600)
+    {
+      newLineArray.add(new KochLine(b,c)); 
+    }
+    if(c.x > 0 && c.y < 600 && end.x < 600 && end.y < 600)
+    {
+      newLineArray.add(new KochLine(c,end)); 
+    }
+    */
   }
   // Noua generatie devine generatia principala 
   lineArray =  newLineArray;
