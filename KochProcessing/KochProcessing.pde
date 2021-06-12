@@ -115,7 +115,7 @@ float nrIteratii=1.0;
 float acc = millis()/1000;
 float zoom = 0.0*acc;
 
-//Input de la tase
+//Input de la taste
 void keyPressed() 
 {
 
