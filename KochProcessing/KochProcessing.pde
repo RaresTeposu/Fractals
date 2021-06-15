@@ -19,41 +19,6 @@ class KochLine
   {
     return start.get();
   }
-  
-  /*
-  PVector pctA()
-  {
-    PVector a = pctStart();
-
-    PVector length = PVector.div(PVector(start, end), 3);
-
-    a.add(length);
-
-    return a;
-  }
-
-  PVector pctB()
-  {
-    PVector b = pctStart();
-
-    PVector length = PVector.div(PVector(start, end), 1/3);
-
-    a.add(length);
-
-    return a;
-  }
-
-  PVector pctC()
-  {
-    PVector c = pctStart;
-
-    PVector length = PVector.mult(PVector(start, end), 2/3.0);
-
-    a.add(length);
-
-    return a;
-  }
-  */
   PVector pctA() 
   {
     // .sub() scade dintr-un vector alt vector (defapt ii aduna, daca amandoi vectorii au baza in colt,
@@ -99,7 +64,7 @@ class KochLine
   }
   
   //Functie de creeare a unei liniei propriu zise
-  void display(float zoom) {
+  void display() {
     stroke(0);
     line(start.x, start.y, end.x, end.y);
   }
@@ -171,7 +136,7 @@ void draw() {
   }
 
   for (KochLine i : lineArray) {
-    i.display(zoom);
+    i.display();
   }
 }
 
